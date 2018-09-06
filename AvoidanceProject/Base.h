@@ -36,11 +36,11 @@ public:
 
 	void SetY(int y)
 	{
-		if (y >= 0)
+		if (y >= 3)
 		{
 			pos_y = y;
-			if (y > Console::WindowHeight())
-				pos_y = 0;
+			if (y > Console::WindowHeight() - 4)
+				pos_y = 3;
 		}
 	};
 

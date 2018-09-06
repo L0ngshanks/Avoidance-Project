@@ -28,6 +28,7 @@ public:
 		Console::SetCursorPosition(Base::GetX(), Base::GetY());
 		Console::ForegroundColor(FOREGROUND_RED);
 		cout << enemyIcon;
+		Console::ResetColor();
 	};
 
 };

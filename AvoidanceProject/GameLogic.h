@@ -12,6 +12,8 @@ using namespace std;
 class GameLogic
 {
 	vector<Base*> _objects;
+
+	int lives = 3;
 public:
 	GameLogic()
 	{
@@ -45,13 +47,27 @@ public:
 		Console::Clear();
 
 		//Display objects here
+		Console::SetCursorPosition(1, 1);
+		cout << "Player" << endl;
+		for (int i = 0; i < Console::WindowWidth(); ++i)
+		{
+			cout << "_";
+		}
+		cout << endl;
 		for (int i = 0; i < _objects.size(); ++i)
 		{
 			_objects[i]->Render();
 		}
-
+		Console::SetCursorPosition(0, Console::WindowHeight() - 4);
+		for (int i = 0; i < Console::WindowWidth(); ++i)
+		{
+			cout << "_";
+		}
+		Console::SetCursorPosition(1, Console::WindowHeight() - 2);
+		cout << "Lives: " << lives << endl;
 		Console::Lock(false);
-		Sleep(10);
+		Sleep(25);
+
 	}
 
 	void Play()

@@ -30,6 +30,8 @@ public:
 		Console::SetCursorPosition(Base::GetX(), Base::GetY());
 		Console::ForegroundColor(FOREGROUND_GREEN);
 		cout << playerIcon;
+		Console::ResetColor();
+		//Sleep(10);
 
 	};
 
