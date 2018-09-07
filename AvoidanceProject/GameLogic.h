@@ -117,7 +117,7 @@ public:
 
 	void Play()
 	{
-		bool play = true, scoreScreen = true;
+		bool play = true;
 		while (play)
 		{
 			Update();
