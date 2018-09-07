@@ -13,20 +13,28 @@ public:
 
 	void Update()
 	{
-		if (GetAsyncKeyState(VK_UP))
+		int originalTick = 0;
+		int newTick = GetTickCount();
+		if (newTick > originalTick + 45)
+		{
+			Base::SetY(Base::GetY() + 1);
+			originalTick = newTick;
+		}
+
+		/*if (GetAsyncKeyState(VK_UP))
 		{
 			Base::SetY(Base::GetY() - 1);
 		}
 		if (GetAsyncKeyState(VK_DOWN))
 		{
 			Base::SetY(Base::GetY() + 1);
-		}
+		}*/
 	}
 	void Render() const
 	{
 		//Display objects here
 		Console::SetCursorPosition(Base::GetX(), Base::GetY());
-		Console::ForegroundColor(FOREGROUND_RED);
+		Console::ForegroundColor(FOREGROUND_RED | FOREGROUND_INTENSITY);
 		cout << enemyIcon;
 		Console::ResetColor();
 	};
