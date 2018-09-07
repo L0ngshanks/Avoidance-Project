@@ -127,17 +127,17 @@ public:
 				play = false;
 		};
 
-		while (scoreScreen)
-		{
-			Console::SetCursorPosition((Console::WindowWidth() / 2) - 5, (Console::WindowHeight() / 2) - 1);
-			cout << "GAME OVER!";
-			Console::SetCursorPosition((Console::WindowWidth() / 2) - 8, (Console::WindowHeight() / 2));
-			cout << "Player";
-			Console::SetCursorPosition((Console::WindowWidth() / 2) - 7, (Console::WindowHeight() / 2) + 1);
-			cout << "Score: " << score;
-			if (GetAsyncKeyState(VK_RETURN))
-				scoreScreen = false;
-		}
+		Console::SetCursorPosition((Console::WindowWidth() / 2) - 5, (Console::WindowHeight() / 2) - 1);
+		cout << "GAME OVER!";
+		Console::SetCursorPosition((Console::WindowWidth() / 2) - 3, (Console::WindowHeight() / 2));
+		cout << "Player";
+		Console::SetCursorPosition((Console::WindowWidth() / 2) - 4, (Console::WindowHeight() / 2) + 1);
+		cout << "Score: " << score;
+		Console::SetCursorPosition((Console::WindowWidth() / 2) - 18, (Console::WindowHeight() / 2) + 3);
+		cout << "Press ENTER to return to Main Menu.";
+
+		_getch();
+
 		Console::ResetColor();
 		Console::Clear();
 	}
