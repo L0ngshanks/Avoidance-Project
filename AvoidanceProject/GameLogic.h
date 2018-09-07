@@ -14,7 +14,8 @@ class GameLogic
 	vector<Base*> _objects;
 
 	char border[121];
-	int lives = 3;
+	int score = 0;
+	int lives = 10;
 
 public:
 	GameLogic()
@@ -23,7 +24,7 @@ public:
 		_objects.push_back(new Enemy(5, 3));
 		_objects.push_back(new Enemy(20, 13));
 		_objects.push_back(new Enemy(40, 8));
-		_objects.push_back(new Enemy(60, 18));
+		_objects.push_back(new Enemy(60, 3));
 		_objects.push_back(new Enemy(80, 8));
 		_objects.push_back(new Enemy(100, 18));
 		_objects.push_back(new Enemy(115, 13));
@@ -45,24 +46,59 @@ public:
 		}
 	}
 
+	void Collision()
+	{
+		int playerX = 0, playerY = 0;
+		int objectX = 0, objectY = 0;
+
+		for (int i = 0; i < _objects.size(); ++i)
+		{
+			playerX = _objects[0]->GetX();
+			playerY = _objects[0]->GetY();
+
+			if (i > 0)
+			{
+				objectX = _objects[i]->GetX();
+				objectY = _objects[i]->GetY();
+
+			}
+			if ((playerX == objectX) && (playerY == objectY))
+				lives -= 1;
+			else
+			{
+				int originalTick = 0;
+				int newTick = GetTickCount();
+				if (newTick > originalTick + 200)
+				{
+					score += 1;
+					originalTick = newTick;
+				}
+
+			}
+		}
+	};
+
 	void Update()
 	{
 		for (int i = 0; i < _objects.size(); ++i)
 		{
 			_objects[i]->Update();
 		}
-	}; 
+
+		Collision();
+	};
 
 	void Render() const
 	{
-
 		Console::Lock(true);
 		//Console::Clear();
 		system("cls");
 
 		//Display objects here
 		Console::SetCursorPosition(1, 1);
-		cout << "Player" << endl;
+		cout << "Player";
+		Console::SetCursorPosition((Console::WindowWidth() / 2) - 8, 1);
+		cout << "Score: " << score << endl;
 		cout << border << endl;
 		for (int i = 0; i < _objects.size(); ++i)
 		{
@@ -71,23 +107,37 @@ public:
 		Console::SetCursorPosition(0, Console::WindowHeight() - 4);
 		cout << border << endl;
 		Console::SetCursorPosition(1, Console::WindowHeight() - 2);
-		cout << "Lives: " << lives << endl;
+		cout << "Lives: " << lives;
+		Console::SetCursorPosition(Console::WindowWidth() - 18, Console::WindowHeight() - 2);
+		cout << "Press ESC to Exit" << endl;
 		Console::Lock(false);
-		Sleep(10);
+		Sleep(20);
 
 	}
 
 	void Play()
 	{
-		bool play = true;
+		bool play = true, scoreScreen = true;
 		while (play)
 		{
 			Update();
 			Render();
 
-			if (GetAsyncKeyState(VK_ESCAPE))
+			if (GetAsyncKeyState(VK_ESCAPE) || lives == 0)
 				play = false;
 		};
+
+		while (scoreScreen)
+		{
+			Console::SetCursorPosition((Console::WindowWidth() / 2) - 5, (Console::WindowHeight() / 2) - 1);
+			cout << "GAME OVER!";
+			Console::SetCursorPosition((Console::WindowWidth() / 2) - 8, (Console::WindowHeight() / 2));
+			cout << "Player";
+			Console::SetCursorPosition((Console::WindowWidth() / 2) - 7, (Console::WindowHeight() / 2) + 1);
+			cout << "Score: " << score;
+			if (GetAsyncKeyState(VK_RETURN))
+				scoreScreen = false;
+		}
 		Console::ResetColor();
 		Console::Clear();
 	}

@@ -15,7 +15,7 @@ public:
 	{
 		int originalTick = 0;
 		int newTick = GetTickCount();
-		if (newTick > originalTick + 45)
+		if (newTick > originalTick + 200)
 		{
 			Base::SetY(Base::GetY() + 1);
 			originalTick = newTick;
