@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <string>
 
 #include "stdafx.h"
 
@@ -78,6 +79,26 @@ public:
 		}
 	};
 
+	void setPlayerName()
+	{
+		char buffer[32];
+		char* name = nullptr;
+
+		system("cls");
+		cout << "What's your name Player? ";
+		cin.getline(buffer,32, '\n');
+
+
+		int length = strlen(buffer) + 1;
+		name = new char[length];
+
+		strcpy_s(name, length, buffer);
+
+		_objects[0]->SetName(name);
+
+		system("cls");
+	}
+
 	void Update()
 	{
 		for (int i = 0; i < _objects.size(); ++i)
@@ -96,7 +117,7 @@ public:
 
 		//Display objects here
 		Console::SetCursorPosition(1, 1);
-		cout << "Player";
+		cout << _objects[0]->GetName();
 		Console::SetCursorPosition((Console::WindowWidth() / 2) - 8, 1);
 		cout << "Score: " << score << endl;
 		cout << border << endl;
@@ -115,6 +136,20 @@ public:
 
 	}
 
+	int ScoreLenth()
+	{
+		char buffer[32] = "Score: ";
+		char scoreStr[8];
+
+		sprintf_s(scoreStr, "%d", score);
+		
+		strcat_s(buffer, scoreStr);
+
+		int length = strlen(buffer) + 1;
+
+		return length;
+	}
+
 	void Play()
 	{
 		bool play = true;
@@ -126,17 +161,21 @@ public:
 			if (GetAsyncKeyState(VK_ESCAPE) || lives == 0)
 				play = false;
 		};
+		int gameOverLength = strlen("Game Over");
+		int nameLength = strlen(_objects[0]->GetName());
+		int enterToMain = strlen("Press ENTER to return to Main Menu.");
 
-		Console::SetCursorPosition((Console::WindowWidth() / 2) - 5, (Console::WindowHeight() / 2) - 1);
+		Console::SetCursorPosition((Console::WindowWidth() / 2) - (gameOverLength / 2), (Console::WindowHeight() / 2) - 1);
 		cout << "GAME OVER!";
-		Console::SetCursorPosition((Console::WindowWidth() / 2) - 3, (Console::WindowHeight() / 2));
-		cout << "Player";
-		Console::SetCursorPosition((Console::WindowWidth() / 2) - 4, (Console::WindowHeight() / 2) + 1);
+		Console::SetCursorPosition((Console::WindowWidth() / 2) - (nameLength / 2), (Console::WindowHeight() / 2));
+		cout << _objects[0]->GetName();
+		Console::SetCursorPosition((Console::WindowWidth() / 2) - (ScoreLenth() / 2), (Console::WindowHeight() / 2) + 1);
 		cout << "Score: " << score;
-		Console::SetCursorPosition((Console::WindowWidth() / 2) - 18, (Console::WindowHeight() / 2) + 3);
+		Console::SetCursorPosition((Console::WindowWidth() / 2) - (enterToMain / 2), (Console::WindowHeight() / 2) + 3);
 		cout << "Press ENTER to return to Main Menu.";
 
-		_getch();
+		cin.clear();
+		cin.ignore(INT_MAX, '\n');
 
 		Console::ResetColor();
 		Console::Clear();

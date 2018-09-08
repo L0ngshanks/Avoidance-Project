@@ -19,6 +19,9 @@ int Validation :: IntValidation(const char msg[32])
 			cout << msg;
 		}
 	}
+	cin.clear();
+	cin.ignore(INT_MAX, '\n');
+
 	return number;
 };
 
@@ -37,6 +40,9 @@ double Validation :: DoubleValidation(const char msg[32])
 			cout << msg;
 		}
 	}
+	cin.clear();
+	cin.ignore(INT_MAX, '\n');
+
 	return number;
 };
 

@@ -15,6 +15,7 @@ void MainMenu::Menu()
 
 	while (selection != 9)
 	{
+
 		cout << "Avoidance Project" << endl;
 		cout << "--------------------------" << endl;
 		cout << "1) New Game" << endl;
@@ -31,11 +32,13 @@ void MainMenu::Menu()
 
 		menuOptions options = menuOptions(selection);
 
+
 		switch (options)
 		{
 		case NewGame:
 		{
 			GameLogic game;
+			game.setPlayerName();
 			game.Play();
 			break;
 		}

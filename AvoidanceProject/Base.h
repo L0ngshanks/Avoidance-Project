@@ -8,6 +8,7 @@ class Base
 	int pos_x;
 	int pos_y;
 
+	char* playerName = nullptr;
 	char characterDisplay;
 public:
 	Base()
@@ -47,6 +48,16 @@ public:
 	void SetSymbol(char symbol)
 	{
 		characterDisplay = symbol;
+	}
+
+	void SetName(char* name)
+	{
+		playerName = name;
+	}
+
+	char* GetName()
+	{
+		return playerName;
 	}
 
 	void virtual Update()

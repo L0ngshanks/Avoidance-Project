@@ -6,7 +6,6 @@ class Player : public Base
 {
 	char playerIcon = 'X';
 
-	char* playerName = nullptr;
 
 public:
 	Player(int x, int y)
