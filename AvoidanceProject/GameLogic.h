@@ -125,6 +125,44 @@ public:
 
 	}
 
+	void TextFileLoad()
+	{
+		ifstream fin;
+
+		char* name = nullptr;
+		int savedScore = 0;
+
+		if (!fin)
+		{
+			cout << "Unable to open file";
+		}
+		else
+		{
+			Console::SetCursorPosition(Console::WindowWidth() / 2 - 3, 1);
+			cout << "Scores" << endl;
+			cout << endl;
+
+			while (true)
+			{
+				fin.getline(name, INT_MAX, '\t');
+
+				if (fin.eof())
+					break;
+
+				fin >> savedScore;
+
+				cout << name << '\t' << savedScore;
+			}
+
+			fin.close();
+		}
+
+		cout << "Press Enter to return to Main Menu.";
+		cin.clear();
+		cin.ignore(INT_MAX, '\n');
+
+	}
+
 	void Update()
 	{
 		for (int i = 0; i < _objects.size(); ++i)

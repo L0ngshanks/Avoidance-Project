@@ -9,6 +9,7 @@ using namespace std;
 void MainMenu::Menu()
 {
 	Validation valid;
+	GameLogic game;
 
 	enum menuOptions {NewGame = 1, Load_txt, Load_bin, Save_txt, Save_bin, Max_Options = 9 };
 	int selection = 0;
@@ -37,12 +38,13 @@ void MainMenu::Menu()
 		{
 		case NewGame:
 		{
-			GameLogic game;
 			game.setPlayerName();
 			game.Play();
 			break;
 		}
 		case Load_txt:
+			system("cls");
+			game.TextFileLoad();
 			break;
 		case Load_bin:
 			break;
