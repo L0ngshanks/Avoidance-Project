@@ -5,8 +5,8 @@ using namespace System;
 
 class Base
 {
-	int pos_x;
-	int pos_y;
+	int pos_x = 0;
+	int pos_y = 0;
 
 	char* playerName = nullptr;
 	char characterDisplay;

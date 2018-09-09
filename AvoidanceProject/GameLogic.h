@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <string>
+#include <fstream>
 
 #include "stdafx.h"
 
@@ -16,11 +17,12 @@ class GameLogic
 
 	char border[121];
 	int score = 0;
-	int lives = 10;
+	int lives = 2;
 
 public:
 	GameLogic()
 	{
+
 		_objects.push_back(new Player(Console::WindowWidth() / 2, Console::WindowHeight() - 5));
 		_objects.push_back(new Enemy(5, 3));
 		_objects.push_back(new Enemy(20, 13));
@@ -86,7 +88,7 @@ public:
 
 		system("cls");
 		cout << "What's your name Player? ";
-		cin.getline(buffer,32, '\n');
+		cin.getline(buffer, 32, '\n');
 
 
 		int length = strlen(buffer) + 1;
@@ -97,6 +99,30 @@ public:
 		_objects[0]->SetName(name);
 
 		system("cls");
+	}
+
+	void TextFileOut()
+	{
+		ofstream txtSaveOut;
+		txtSaveOut.open("save.txt", ios::out | ios::app);
+
+		if (!txtSaveOut)
+		{
+			txtSaveOut.open("save.txt", ios::trunc | ios::out);
+			txtSaveOut.close();
+
+			txtSaveOut.open("save.txt", ios::out | ios::app);
+		}
+		
+		if (txtSaveOut.is_open())
+		{
+			char * playerName = _objects[0]->GetName();
+			txtSaveOut << playerName << '\t' << score;
+			txtSaveOut.close();
+		}
+		else
+			cout << "File is already open.";
+
 	}
 
 	void Update()
@@ -142,7 +168,7 @@ public:
 		char scoreStr[8];
 
 		sprintf_s(scoreStr, "%d", score);
-		
+
 		strcat_s(buffer, scoreStr);
 
 		int length = strlen(buffer) + 1;
@@ -152,6 +178,7 @@ public:
 
 	void Play()
 	{
+		char saveScore;
 		bool play = true;
 		while (play)
 		{
@@ -164,6 +191,7 @@ public:
 		int gameOverLength = strlen("Game Over");
 		int nameLength = strlen(_objects[0]->GetName());
 		int enterToMain = strlen("Press ENTER to return to Main Menu.");
+		int saveToFile = strlen("Do you wish to save your score?");
 
 		Console::SetCursorPosition((Console::WindowWidth() / 2) - (gameOverLength / 2), (Console::WindowHeight() / 2) - 1);
 		cout << "GAME OVER!";
@@ -171,7 +199,19 @@ public:
 		cout << _objects[0]->GetName();
 		Console::SetCursorPosition((Console::WindowWidth() / 2) - (ScoreLenth() / 2), (Console::WindowHeight() / 2) + 1);
 		cout << "Score: " << score;
-		Console::SetCursorPosition((Console::WindowWidth() / 2) - (enterToMain / 2), (Console::WindowHeight() / 2) + 3);
+		Console::SetCursorPosition((Console::WindowWidth() / 2) - (saveToFile / 2), (Console::WindowHeight() / 2) + 3);
+		cout << "Do you wish to save your score?  Y/N ";
+		cin >> saveScore;
+		saveScore = toupper(saveScore);
+		if (saveScore == 'Y')
+		{
+			TextFileOut();
+		}
+
+		cin.clear();
+		cin.ignore(INT_MAX, '\n');
+
+		Console::SetCursorPosition((Console::WindowWidth() / 2) - (enterToMain / 2), (Console::WindowHeight() / 2) + 4);
 		cout << "Press ENTER to return to Main Menu.";
 
 		cin.clear();
