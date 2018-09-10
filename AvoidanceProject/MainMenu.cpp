@@ -38,7 +38,7 @@ void MainMenu::Menu()
 		{
 		case NewGame:
 		{
-			game.setPlayerName();
+			game.SetPlayerName();
 			game.Play();
 			break;
 		}

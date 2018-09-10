@@ -126,8 +126,12 @@
     <ClInclude Include="Validation.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Base.cpp" />
     <ClCompile Include="Console.cpp" />
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="GameLogic.cpp" />
     <ClCompile Include="MainMenu.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="Start.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="Validation.cpp" />
