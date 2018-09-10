@@ -111,7 +111,7 @@ using namespace std;
 		if (txtSaveOut.is_open())
 		{
 			char * playerName = _objects[0]->GetName();
-			txtSaveOut << playerName << '\t' << score;
+			txtSaveOut << playerName << '\t' << score << endl;
 			txtSaveOut.close();
 		}
 		else
@@ -145,7 +145,7 @@ using namespace std;
 
 				fin >> savedScore;
 
-				cout << name << '\t' << savedScore;
+				cout << name << '\t' << savedScore << endl;
 			}
 
 			fin.close();
